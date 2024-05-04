@@ -1,6 +1,10 @@
+import { useState } from "react";
 import "./SignIn.css";
 
 const SignIn = () => {
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+
     return (
         <main className="main bg-dark">
             <section className="sign-in-content">
