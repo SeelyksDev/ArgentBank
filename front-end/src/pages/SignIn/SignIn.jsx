@@ -1,9 +1,16 @@
 import { useState } from "react";
 import "./SignIn.css";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../store/userSlice";
 
 const SignIn = () => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const dispatch = useDispatch()
+    const userData = {
+        name: "data",
+        userName: "azerty",
+    }
 
     return (
         <main className="main bg-dark">
@@ -23,7 +30,7 @@ const SignIn = () => {
                         <input type="checkbox" id="remember-me" />
                         <label htmlFor="remember-me">Remember me</label>
                     </div>
-                    <button className="sign-in-button">Sign In</button>
+                    <button className="sign-in-button" onClick={() => dispatch(setUser(userData))}>Sign In</button>
                 </form>
             </section>
         </main>
