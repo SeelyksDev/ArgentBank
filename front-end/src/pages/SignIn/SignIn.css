@@ -1,4 +1,4 @@
-.sign-in-button { 
+.sign-in-button {
     display: block;
     width: 100%;
     padding: 8px;
@@ -10,7 +10,7 @@
     color: #fff;
 }
 
-.sign-in-content { 
+.sign-in-content {
     box-sizing: border-box;
     background-color: white;
     width: 300px;
@@ -19,15 +19,11 @@
     padding: 2rem;
 }
 
-.sign-in-icon { 
-    font-size: 5rem;
-}
-
-.input-remember { 
+.input-remember {
     display: flex;
 }
 
-.input-remember label { 
+.input-remember label {
     margin-left: 0.25rem;
 }
 

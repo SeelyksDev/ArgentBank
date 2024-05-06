@@ -1,27 +1,39 @@
 import { useState } from "react";
+import UserIcon from "../../assets/user-icon.png";
 import "./SignIn.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../store/userSlice";
 import { useNavigate } from "react-router-dom";
 
 const SignIn = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [isChecked, setIsChecked] = useState(false);
+
     const dispatch = useDispatch();
-    const userData = {
-        name: "data",
-        userName: "azerty",
-    };
     const navigate = useNavigate();
+
+    const user = useSelector((state) => state.user);
+
+    const checkIfIsTrue = () => {
+        if (isChecked) {
+            localStorage.setItem("Token", user.token);
+        }
+    };
 
     return (
         <main className="main bg-dark">
             <section className="sign-in-content">
-                <i className="fa fa-user-circle sign-in-icon"></i>
+                <img
+                    src={UserIcon}
+                    className="main-user_logo"
+                    alt="user logo"
+                />
                 <h1>Sign In</h1>
                 <form
                     onSubmit={(e) => {
                         e.preventDefault();
+                        checkIfIsTrue();
                         navigate("/user");
                     }}
                 >
@@ -42,8 +54,14 @@ const SignIn = () => {
                         />
                     </div>
                     <div className="input-remember">
-                        <input type="checkbox" id="remember-me" />
                         <label htmlFor="remember-me">Remember me</label>
+                        <input
+                            onChange={() => {
+                                setIsChecked(!isChecked);
+                            }}
+                            type="checkbox"
+                            id="remember-me"
+                        />
                     </div>
                     <button
                         className="sign-in-button"

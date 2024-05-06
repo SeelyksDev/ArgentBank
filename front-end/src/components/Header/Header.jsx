@@ -1,6 +1,7 @@
 import "./Header.css";
 import { NavLink, useNavigate } from "react-router-dom";
 import UserIcon from "../../assets/user-icon.png";
+import arrowFromBracket from "../../assets/arrow-right-from-bracket.png";
 import ArgentBankLogo from "../../assets/argentBankLogo.png";
 import { useDispatch, useSelector } from "react-redux";
 import { userLogout } from "../../store/userSlice";
@@ -27,7 +28,7 @@ const Header = () => {
                 </NavLink>
                 <div>
                     {user.token ? (
-                        <>
+                        <div className="user-nav">
                             <NavLink to="/user" className="main-nav-item">
                                 <img
                                     src={UserIcon}
@@ -36,8 +37,19 @@ const Header = () => {
                                 />
                                 Tony
                             </NavLink>
-                            <button onClick={() => logout()}>Sign Out</button>
-                        </>
+
+                            <button
+                                onClick={() => logout()}
+                                className="button-logout"
+                            >
+                                <img
+                                    src={arrowFromBracket}
+                                    alt="arrow from bracket"
+                                    className="arrowLogout"
+                                />
+                                Sign Out
+                            </button>
+                        </div>
                     ) : (
                         <NavLink to="/sign-in" className="main-nav-item">
                             <img

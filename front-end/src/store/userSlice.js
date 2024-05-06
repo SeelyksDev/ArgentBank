@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { login } from "../api/login";
 
 const initialState = {
     username: null,
@@ -15,7 +16,6 @@ const userSlice = createSlice({
         userLogout: (state) => {
             state.username = null;
             state.token = null;
-            console.log(state.token);
         },
     },
     extraReducers: (builder) => {
@@ -25,21 +25,9 @@ const userSlice = createSlice({
     },
 });
 
-export const loginUser = createAsyncThunk("user/loginUser", async (userId) => {
-    const response = await fetch("http://localhost:3001/api/v1/user/login", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            email: userId.email,
-            password: userId.password,
-        }),
-    });
-    const responseJson = await response.json();
-    const token = responseJson.body.token;
-    return token;
-});
+export const loginUser = createAsyncThunk("user/loginUser", async (userId) =>
+    login(userId)
+);
 
 export const { setUser, userLogout } = userSlice.actions;
 export default userSlice.reducer;
