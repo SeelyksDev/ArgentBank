@@ -34,7 +34,7 @@ const SignIn = () => {
                     onSubmit={(e) => {
                         e.preventDefault();
                         checkIfIsTrue();
-                        navigate("/user");
+                        navigate("/profile");
                     }}
                 >
                     <div className="input-wrapper">

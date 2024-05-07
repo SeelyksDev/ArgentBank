@@ -1,18 +1,20 @@
-import "./Account.css"
+import "./Account.css";
 
-const Account = ({ accountType, amount, soldeType  }) => {
-return (
-    <section className="account">
-          <div className="account-content-wrapper">
-            <h3 className="account-title">{accountType}</h3>
-            <p className="account-amount">{amount}</p>
-            <p className="account-amount-description">{soldeType}</p>
-          </div>
-          <div className="account-content-wrapper cta">
-            <button className="transaction-button">View transactions</button>
-          </div>
-        </section> 
-)
-}
+const Account = ({ accountType, amount, soldeType }) => {
+    return (
+        <section className="account">
+            <div className="account-content-wrapper">
+                <h3 className="account-title">{accountType}</h3>
+                <p className="account-amount">{amount}</p>
+                <p className="account-amount-description">{soldeType}</p>
+            </div>
+            <div className="account-content-wrapper cta">
+                <button className="transaction-button">
+                    View transactions
+                </button>
+            </div>
+        </section>
+    );
+};
 
-export default Account
+export default Account;

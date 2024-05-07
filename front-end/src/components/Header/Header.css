@@ -49,11 +49,9 @@
     text-decoration: none;
     display: flex;
     align-items: center;
-    background-color: white;
-    border: none;
-    font-family: Avenir, Helvetica, Arial, sans-serif;
     font-weight: bold;
     cursor: pointer;
+    margin-left: 10px;
 }
 
 .button-logout:hover {

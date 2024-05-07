@@ -28,7 +28,7 @@ const Header = () => {
                 </NavLink>
                 <div>
                     {user.token ? (
-                        <div className="user-nav">
+                        <ul className="user-nav">
                             <NavLink to="/user" className="main-nav-item">
                                 <img
                                     src={UserIcon}
@@ -38,7 +38,7 @@ const Header = () => {
                                 Tony
                             </NavLink>
 
-                            <button
+                            <li
                                 onClick={() => logout()}
                                 className="button-logout"
                             >
@@ -48,8 +48,8 @@ const Header = () => {
                                     className="arrowLogout"
                                 />
                                 Sign Out
-                            </button>
-                        </div>
+                            </li>
+                        </ul>
                     ) : (
                         <NavLink to="/sign-in" className="main-nav-item">
                             <img
