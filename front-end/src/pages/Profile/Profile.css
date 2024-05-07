@@ -11,6 +11,10 @@
   cursor: pointer;
 }
 
+.save-button[disabled='true'] {
+  background-color: gray;
+}
+
 .update-username-content {
   box-sizing: border-box;
   background-color: white;

@@ -1,14 +1,17 @@
 import accountData from "../../data/accountData.json";
 import Account from "../../components/Account/Account";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import "./Profile.css";
 import UserIcon from "../../assets/user-icon.png";
+import { updateUserNameAPI } from "../../api/updateUsernameAPI";
+import { getUserInfo } from "../../store/userSlice";
 
 const Profile = () => {
-    const [userName, setUserName] = useState("Tony Jarvis");
     const [isOpened, setIsOpened] = useState(false);
+    const [usernameValue, setUsernameValue] = useState("");
     const user = useSelector((state) => state.user);
+    const dispatch = useDispatch();
 
     return (
         <main className="main bg-dark">
@@ -23,13 +26,21 @@ const Profile = () => {
                     <form>
                         <div className="input-wrapper">
                             <label htmlFor="username">User name</label>
-                            <input type="text" id="username" />
+                            <input
+                                onChange={(e) =>
+                                    setUsernameValue(e.target.value)
+                                }
+                                type="text"
+                                id="username"
+                                defaultValue={user.userInfo.userName}
+                            />
                         </div>
                         <div className="input-wrapper not-allowed">
                             <label htmlFor="firstname">First name</label>
                             <input
                                 type="text"
                                 id="firstname"
+                                defaultValue={user.userInfo.firstName}
                                 readOnly
                                 disabled
                             />
@@ -39,11 +50,22 @@ const Profile = () => {
                             <input
                                 type="text"
                                 id="lastname"
+                                defaultValue={user.userInfo.lastName}
                                 readOnly
                                 disabled
                             />
                         </div>
-                        <button className="save-button">Save</button>
+                        <button
+                            className="save-button"
+                            onClick={(e) => {
+                                updateUserNameAPI(user.token, usernameValue);
+                                e.preventDefault();
+                                setIsOpened(false);
+                                dispatch(getUserInfo(user.token));
+                            }}
+                        >
+                            Save
+                        </button>
                         <button
                             onClick={() => setIsOpened(false)}
                             className="cancel-button"
@@ -57,7 +79,7 @@ const Profile = () => {
                     <h1>
                         Welcome back
                         <br />
-                        {user.userName}!
+                        {user.userInfo.userName}!
                     </h1>
                     <button
                         onClick={() => setIsOpened(true)}

@@ -27,15 +27,15 @@ const Header = () => {
                     <h1 className="sr-only">Argent Bank</h1>
                 </NavLink>
                 <div>
-                    {user.token ? (
+                    {user.token && user.userInfo.userName ? (
                         <ul className="user-nav">
-                            <NavLink to="/user" className="main-nav-item">
+                            <NavLink to="/profile" className="main-nav-item">
                                 <img
                                     src={UserIcon}
                                     className="main-user_logo"
                                     alt="user logo"
                                 />
-                                Tony
+                                {user.userInfo.userName}
                             </NavLink>
 
                             <li

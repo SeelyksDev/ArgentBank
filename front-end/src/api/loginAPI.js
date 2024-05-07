@@ -1,4 +1,4 @@
-export const login = async (userId) => {
+export const loginAPI = async (userId) => {
     const response = await fetch("http://localhost:3001/api/v1/user/login", {
         method: "POST",
         headers: {

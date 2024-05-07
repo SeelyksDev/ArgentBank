@@ -11,15 +11,8 @@ const SignIn = () => {
     const [isChecked, setIsChecked] = useState(false);
 
     const dispatch = useDispatch();
-    const navigate = useNavigate();
 
     const user = useSelector((state) => state.user);
-
-    const checkIfIsTrue = () => {
-        if (isChecked) {
-            localStorage.setItem("Token", user.token);
-        }
-    };
 
     return (
         <main className="main bg-dark">
@@ -33,15 +26,13 @@ const SignIn = () => {
                 <form
                     onSubmit={(e) => {
                         e.preventDefault();
-                        checkIfIsTrue();
-                        navigate("/profile");
                     }}
                 >
                     <div className="input-wrapper">
                         <label htmlFor="username">Username</label>
                         <input
                             onChange={(e) => setEmail(e.target.value)}
-                            type="text"
+                            type="email"
                             id="username"
                         />
                     </div>
@@ -67,7 +58,11 @@ const SignIn = () => {
                         className="sign-in-button"
                         onClick={() =>
                             dispatch(
-                                loginUser({ email: email, password: password })
+                                loginUser({
+                                    email: email,
+                                    password: password,
+                                    remember: isChecked,
+                                })
                             )
                         }
                     >
