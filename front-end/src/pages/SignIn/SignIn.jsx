@@ -68,6 +68,9 @@ const SignIn = () => {
                     >
                         Sign In
                     </button>
+                    {user.error ? (
+                        <p className="error-msg">{user.error}</p>
+                    ) : null}
                 </form>
             </section>
         </main>

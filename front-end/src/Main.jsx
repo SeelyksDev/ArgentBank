@@ -7,6 +7,10 @@ import { setToken } from "./store/userSlice";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { getUserInfo } from "./store/userSlice";
 import { useDispatch } from "react-redux";
+import {
+    LogedRoutes,
+    PrivateRoute,
+} from "./components/PrivateRoute/PrivateRoute";
 
 const Main = () => {
     const dispatch = useDispatch();
@@ -20,8 +24,12 @@ const Main = () => {
             <Header />
             <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="/profile" element={<Profile />} />
-                <Route path="/sign-in" element={<SignIn />} />
+                <Route element={<PrivateRoute />}>
+                    <Route path="/profile" element={<Profile />} />
+                </Route>
+                <Route element={<LogedRoutes />}>
+                    <Route path="/sign-in" element={<SignIn />} />
+                </Route>
             </Routes>
             <Footer />
         </Router>

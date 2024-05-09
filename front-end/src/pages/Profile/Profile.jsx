@@ -10,8 +10,20 @@ import { getUserInfo } from "../../store/userSlice";
 const Profile = () => {
     const [isOpened, setIsOpened] = useState(false);
     const [usernameValue, setUsernameValue] = useState("");
+    const [formError, setFormError] = useState(null);
     const user = useSelector((state) => state.user);
     const dispatch = useDispatch();
+
+    const updateUsername = async (e) => {
+        e.preventDefault();
+        const { error } = await updateUserNameAPI(user.token, usernameValue);
+        if (error) {
+            setFormError(error);
+        } else {
+            setIsOpened(false);
+            dispatch(getUserInfo(user.token));
+        }
+    };
 
     return (
         <main className="main bg-dark">
@@ -57,11 +69,9 @@ const Profile = () => {
                         </div>
                         <button
                             className="save-button"
+                            disabled={usernameValue === ""}
                             onClick={(e) => {
-                                updateUserNameAPI(user.token, usernameValue);
-                                e.preventDefault();
-                                setIsOpened(false);
-                                dispatch(getUserInfo(user.token));
+                                updateUsername(e);
                             }}
                         >
                             Save
@@ -72,6 +82,7 @@ const Profile = () => {
                         >
                             Cancel
                         </button>
+                        {formError ? <p>{formError}</p> : null}
                     </form>
                 </section>
             ) : (

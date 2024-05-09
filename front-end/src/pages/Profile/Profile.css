@@ -11,8 +11,9 @@
   cursor: pointer;
 }
 
-.save-button[disabled='true'] {
+.save-button:disabled, .save-button[disabled] {
   background-color: gray;
+  cursor: not-allowed;
 }
 
 .update-username-content {

@@ -27,7 +27,7 @@ const Header = () => {
                     <h1 className="sr-only">Argent Bank</h1>
                 </NavLink>
                 <div>
-                    {user.token && user.userInfo.userName ? (
+                    {user.token ? (
                         <ul className="user-nav">
                             <NavLink to="/profile" className="main-nav-item">
                                 <img
