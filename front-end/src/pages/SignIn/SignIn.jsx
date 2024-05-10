@@ -1,11 +1,15 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import UserIcon from "../../assets/user-icon.png";
 import "./SignIn.css";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../store/userSlice";
-import { useNavigate } from "react-router-dom";
 
 const SignIn = () => {
+    useEffect(() => {
+        document.title = "ArgentBank - Sign-in";
+        return () => {};
+    }, []);
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [isChecked, setIsChecked] = useState(false);

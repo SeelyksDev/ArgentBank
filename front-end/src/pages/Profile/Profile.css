@@ -60,3 +60,8 @@
   color: #fff;
   margin-bottom: 2rem;
 }
+
+.error-edit-msg {
+  font-weight: bold;
+  color: red;
+}

@@ -1,8 +1,14 @@
+import { useEffect } from "react";
 import FeatureItem from "../../components/FeatureItem/FeatureItem";
 import FeaturesContent from "../../data/featuresContent.json";
 import "./Home.css";
 
 const Home = () => {
+    useEffect(() => {
+        document.title = "ArgentBank - Accueil";
+        return () => {};
+    }, []);
+
     return (
         <main>
             <div className="hero">

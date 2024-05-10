@@ -1,6 +1,6 @@
 import accountData from "../../data/accountData.json";
 import Account from "../../components/Account/Account";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./Profile.css";
 import UserIcon from "../../assets/user-icon.png";
@@ -8,6 +8,11 @@ import { updateUserNameAPI } from "../../api/updateUsernameAPI";
 import { getUserInfo } from "../../store/userSlice";
 
 const Profile = () => {
+    useEffect(() => {
+        document.title = "ArgentBank - Profile";
+        return () => {};
+    }, []);
+
     const [isOpened, setIsOpened] = useState(false);
     const [usernameValue, setUsernameValue] = useState("");
     const [formError, setFormError] = useState(null);
@@ -82,7 +87,9 @@ const Profile = () => {
                         >
                             Cancel
                         </button>
-                        {formError ? <p>{formError}</p> : null}
+                        {formError ? (
+                            <p className="error-edit-msg">{formError}</p>
+                        ) : null}
                     </form>
                 </section>
             ) : (
