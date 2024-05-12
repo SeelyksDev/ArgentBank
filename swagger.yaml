@@ -1,158 +1,418 @@
-swagger: '2.0'
+swagger: "2.0"
 info:
-  title: Bank Argent API documentation
-  description: Contains all available API endpoints in this codebase
-  version: '1.0.0'
-  termsOfService: 'http://swagger.io/terms/'
+    title: Bank Argent API documentation
+    description: Contains all available API endpoints in this codebase
+    version: "1.0.0"
+    termsOfService: "http://swagger.io/terms/"
 host: localhost:3001
 basePath: /api/v1
 schemes:
-  - http
+    - http
 paths:
-  /user/login:
-    post:
-      tags:
-        - User Module
-      summary: Login
-      description: API for Login
-      parameters:
-        - in: body
-          name: body
-          description: Login Payload
-          required: true
-          schema:
-            $ref: '#/definitions/Login'
-      produces:
-        - application/json
-      responses:
-        '200':
-          description: Login Successfully
-          schema:
-            $ref: '#/definitions/LoginResponse'
-        '400':
-          description: Invalid Fields
-        '500':
-          description: Internal Server Error
-  /user/signup:
-    post:
-      tags:
-        - User Module
-      summary: Signup
-      description: API for Signup
-      parameters:
-        - in: body
-          name: body
-          description: Signup Payload
-          required: true
-          schema:
-            $ref: '#/definitions/User'
-      produces:
-        - application/json
-      responses:
-        '200':
-          description: Signup Successfully
-          schema:
-            $ref: '#/definitions/ApiResponse'
-        '400':
-          description: Invalid Fields
-        '500':
-          description: Internal Server Error
-  /user/profile:
-    post:
-      security:
-        - Bearer: []
-      tags:
-        - User Module
-      summary: User Profile API
-      description: API for fetching a user profile
-      #produces:
-       # - application/json
-      responses:
-        '200':
-          description: User profile retrieved successully
-          schema:
-            $ref: '#/definitions/ApiResponse'
-        '400':
-          description: Invalid Fields
-        '500':
-          description: Internal Server Error
-    put:
-      security:
-        - Bearer: []
-      tags:
-        - User Module
-      summary: User Profile API
-      description: API for updating a user profile
-      parameters:
-        - in: body
-          name: body
-          description: Update user profile attributes
-          required: true
-          schema:
-            $ref: '#/definitions/UserProfile'
-      produces:
-        - application/json
-      responses:
-        '200':
-          description: User profile retrieved successully
-          schema:
-            $ref: '#/definitions/ApiResponse'
-        '400':
-          description: Invalid Fields
-        '500':
-          description: Internal Server Error
+    /user/account/{month}/transactions:
+        get:
+            tags:
+                - User Transactions
+            summary: User transactions for current Month
+            description: API to get user transactions of current month
+            parameters:
+                - in: header
+                  name: Authorization
+                  description: Bearer token for Authentification
+                  required: true
+                  type: string
+                - in: path
+                  name: month
+                  type: string
+                  required: true
+            security:
+                - Bearer: []
+            produces:
+                - application/json
+            responses:
+                "200":
+                    description: Getting transaction successfully
+                    schema:
+                        $ref: "#/definitions/Transactions"
+                "404":
+                    description: Not Found
+                "500":
+                    description: Internal Server Error
+
+    /user/account/transactions/{transactionId}:
+        get:
+            tags:
+                - User Transactions
+            summary: User transactions details
+            description: API to get user transactions details
+            parameters:
+                - in: header
+                  name: Authorization
+                  description: Bearer token for Authentification
+                  required: true
+                  type: string
+                - in: path
+                  name: transactionId
+                  type: string
+                  required: true
+            security:
+                - Bearer: []
+            produces:
+                - application/json
+            responses:
+                "200":
+                    description: Getting transaction details successfully
+                    schema:
+                        $ref: "#/definitions/TransactionsDetails"
+                "404":
+                    description: Not Found
+                "500":
+                    description: Internal Server Error
+
+        put:
+            tags:
+                - User Transactions
+            summary: User transactions category edit
+            description: API to edit user transaction category
+            parameters:
+                - in: header
+                  name: Authorization
+                  description: Bearer token for Authentification
+                  required: true
+                  type: string
+                - in: path
+                  name: transactionId
+                  type: string
+                  required: true
+                - in: body
+                  name: Body
+                  required: true
+                  schema:
+                      $ref: "#/definitions/BodyTransactionsEditCategory"
+
+            security:
+                - Bearer: []
+            produces:
+                - application/json
+            responses:
+                "200":
+                    description: Editing transaction category successfully
+                    schema:
+                        $ref: "#/definitions/TransactionsEditCategory"
+                "400":
+                    description: Invalid Field
+                "404":
+                    description: Not Found
+                "500":
+                    description: Internal Server Error
+
+    /user/account/transactions/{transactionId}/note:
+        post:
+            tags:
+                - User Transactions
+            summary: User transactions create note
+            description: API to create a new user transactions note
+            parameters:
+                - in: header
+                  name: Authorization
+                  description: Bearer token for Authentification
+                  required: true
+                  type: string
+                - in: path
+                  name: transactionId
+                  type: string
+                  required: true
+                - in: body
+                  name: Body
+                  required: true
+                  schema:
+                      $ref: "#/definitions/BodyTransactionsNote"
+            security:
+                - Bearer: []
+            produces:
+                - application/json
+            responses:
+                "201":
+                    description: Creating note user transaction successfully
+                    schema:
+                        $ref: "#/definitions/TransactionsNote"
+                "400":
+                    description: Invalid Field
+                "404":
+                    description: Not Found
+                "500":
+                    description: Internal Server Error
+
+        put:
+            tags:
+                - User Transactions
+            summary: User transactions edit note
+            description: API to edit a user transactions note
+            parameters:
+                - in: header
+                  name: Authorization
+                  description: Bearer token for Authentification
+                  required: true
+                  type: string
+                - in: path
+                  name: transactionId
+                  type: string
+                  required: true
+                - in: body
+                  name: Body
+                  required: true
+                  schema:
+                      $ref: "#/definitions/BodyTransactionsNoteEdit"
+            security:
+                - Bearer: []
+            produces:
+                - application/json
+            responses:
+                "200":
+                    description: Editing note user transaction successfully
+                    schema:
+                        $ref: "#/definitions/TransactionsNoteEdit"
+                "400":
+                    description: Invalid Field
+                "404":
+                    description: Not Found
+                "500":
+                    description: Internal Server Error
+
+        delete:
+            tags:
+                - User Transactions
+            summary: User transactions delete note
+            description: API to delete a user transactions note
+            parameters:
+                - in: header
+                  name: Authorization
+                  description: Bearer token for Authentification
+                  required: true
+                  type: string
+                - in: path
+                  name: transactionId
+                  type: string
+                  required: true
+            security:
+                - Bearer: []
+            produces:
+                - application/json
+            responses:
+                "204":
+                    description: Delete note user transaction successfully
+                "404":
+                    description: Not Found
+                "500":
+                    description: Internal Server Error
+
+    /user/login:
+        post:
+            tags:
+                - User Module
+            summary: Login
+            description: API for Login
+            parameters:
+                - in: body
+                  name: body
+                  description: Login Payload
+                  required: true
+                  schema:
+                      $ref: "#/definitions/Login"
+            produces:
+                - application/json
+            responses:
+                "200":
+                    description: Login Successfully
+                    schema:
+                        $ref: "#/definitions/LoginResponse"
+                "400":
+                    description: Invalid Fields
+                "500":
+                    description: Internal Server Error
+
+    /user/signup:
+        post:
+            tags:
+                - User Module
+            summary: Signup
+            description: API for Signup
+            parameters:
+                - in: body
+                  name: body
+                  description: Signup Payload
+                  required: true
+                  schema:
+                      $ref: "#/definitions/User"
+            produces:
+                - application/json
+            responses:
+                "200":
+                    description: Signup Successfully
+                    schema:
+                        $ref: "#/definitions/ApiResponse"
+                "400":
+                    description: Invalid Fields
+                "500":
+                    description: Internal Server Error
+
+    /user/profile:
+        post:
+            security:
+                - Bearer: []
+            tags:
+                - User Module
+            summary: User Profile API
+            description: API for fetching a user profile
+            #produces:
+            # - application/json
+            responses:
+                "200":
+                    description: User profile retrieved successully
+                    schema:
+                        $ref: "#/definitions/ApiResponse"
+                "400":
+                    description: Invalid Fields
+                "500":
+                    description: Internal Server Error
+        put:
+            security:
+                - Bearer: []
+            tags:
+                - User Module
+            summary: User Profile API
+            description: API for updating a user profile
+            parameters:
+                - in: body
+                  name: body
+                  description: Update user profile attributes
+                  required: true
+                  schema:
+                      $ref: "#/definitions/UserProfile"
+            produces:
+                - application/json
+            responses:
+                "200":
+                    description: User profile retrieved successully
+                    schema:
+                        $ref: "#/definitions/ApiResponse"
+                "400":
+                    description: Invalid Fields
+                "500":
+                    description: Internal Server Error
 securityDefinitions:
-  Bearer:
-    type: apiKey
-    name: Authorization
-    in: header
+    Bearer:
+        type: apiKey
+        name: Authorization
+        in: header
 definitions:
-  User:
-    properties:
-      email:
-        type: string
-        description: user email
-      password:
-        type: string
-        description: user password
-      firstName:
-        type: string
-        description: user first name
-      lastName:
-        type: string
-        description: user last name
-      userName:
-        type: string
-        description: user public name
-  Login:
-    properties:
-      email:
-        type: string
-        description: user email
-      password:
-        type: string
-        description: user password
-  ApiResponse:
-    type: object
-    properties:
-      status:
-        type: integer
-      message:
-        type: string
-      body:
+    Transactions:
         type: object
         properties:
-          id:
-            type: string
-          email:
-            type: string
-  LoginResponse:
-    type: object
-    properties:
-      token:
-        type: string
-  UserProfile:
-    type: object
-    properties:
-      userName:
-        type: string
+            transactions:
+                type: array
+                items:
+                    type: object
+                    properties:
+                        Description:
+                            type: string
+                            description: transaction description
+                        Amount:
+                            type: integer
+                            description: transaction amount
+                        Balance:
+                            type: integer
+                            description: transaction balance
+                        date:
+                            type: string
+                            format: date
+    TransactionsDetails:
+        properties:
+            transactionType:
+                type: string
+                description: transactiont type
+            category:
+                type: string
+                description: transaction category
+            note:
+                type: string
+                description: transaction note
+    BodyTransactionsEditCategory:
+        properties:
+            category:
+                type: string
+                description: transaction category edit body
+    TransactionsEditCategory:
+        properties:
+            category:
+                type: string
+                description: transaction category edit
+    BodyTransactionsNote:
+        properties:
+            note:
+                type: string
+                description: create transaction note body
+    TransactionsNote:
+        properties:
+            note:
+                type: string
+                description: create transaction note
+    BodyTransactionsNoteEdit:
+        properties:
+            note:
+                type: string
+                description: editing transaction note body
+    TransactionsNoteEdit:
+        properties:
+            note:
+                type: string
+                description: editing transaction note
+    User:
+        properties:
+            email:
+                type: string
+                description: user email
+            password:
+                type: string
+                description: user password
+            firstName:
+                type: string
+                description: user first name
+            lastName:
+                type: string
+                description: user last name
+            userName:
+                type: string
+                description: user public name
+    Login:
+        properties:
+            email:
+                type: string
+                description: user email
+            password:
+                type: string
+                description: user password
+    ApiResponse:
+        type: object
+        properties:
+            status:
+                type: integer
+            message:
+                type: string
+            body:
+                type: object
+                properties:
+                    id:
+                        type: string
+                    email:
+                        type: string
+    LoginResponse:
+        type: object
+        properties:
+            token:
+                type: string
+    UserProfile:
+        type: object
+        properties:
+            userName:
+                type: string
