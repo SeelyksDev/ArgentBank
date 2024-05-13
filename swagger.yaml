@@ -9,7 +9,7 @@ basePath: /api/v1
 schemes:
     - http
 paths:
-    /user/account/{month}/transactions:
+    /user/account/transactions/{month}:
         get:
             tags:
                 - User Transactions
@@ -39,7 +39,7 @@ paths:
                 "500":
                     description: Internal Server Error
 
-    /user/account/transactions/{transactionId}:
+    /user/account/transactions/{id}:
         get:
             tags:
                 - User Transactions
@@ -52,7 +52,7 @@ paths:
                   required: true
                   type: string
                 - in: path
-                  name: transactionId
+                  name: id
                   type: string
                   required: true
             security:
@@ -81,7 +81,7 @@ paths:
                   required: true
                   type: string
                 - in: path
-                  name: transactionId
+                  name: id
                   type: string
                   required: true
                 - in: body
@@ -106,7 +106,7 @@ paths:
                 "500":
                     description: Internal Server Error
 
-    /user/account/transactions/{transactionId}/note:
+    /user/account/transactions/{id}/note:
         post:
             tags:
                 - User Transactions
@@ -119,7 +119,7 @@ paths:
                   required: true
                   type: string
                 - in: path
-                  name: transactionId
+                  name: id
                   type: string
                   required: true
                 - in: body
@@ -155,7 +155,7 @@ paths:
                   required: true
                   type: string
                 - in: path
-                  name: transactionId
+                  name: id
                   type: string
                   required: true
                 - in: body
@@ -191,7 +191,7 @@ paths:
                   required: true
                   type: string
                 - in: path
-                  name: transactionId
+                  name: id
                   type: string
                   required: true
             security:
@@ -200,7 +200,9 @@ paths:
                 - application/json
             responses:
                 "204":
-                    description: Delete note user transaction successfully
+                    description: Delete note user transaction successfully (No Content)
+                    schema:
+                        $ref: "#/definitions/TransactionNoteDelete"
                 "404":
                     description: Not Found
                 "500":
@@ -314,13 +316,16 @@ definitions:
                 items:
                     type: object
                     properties:
-                        Description:
+                        id:
+                            type: integer
+                            description: transaction id
+                        description:
                             type: string
                             description: transaction description
-                        Amount:
+                        amount:
                             type: integer
                             description: transaction amount
-                        Balance:
+                        balance:
                             type: integer
                             description: transaction balance
                         date:
@@ -328,9 +333,12 @@ definitions:
                             format: date
     TransactionsDetails:
         properties:
+            transactionId:
+                type: integer
+                description: transaction id
             transactionType:
                 type: string
-                description: transactiont type
+                description: transaction type
             category:
                 type: string
                 description: transaction category
@@ -367,6 +375,9 @@ definitions:
             note:
                 type: string
                 description: editing transaction note
+    TransactionNoteDelete:
+        type: object
+        properties: {}
     User:
         properties:
             email:
