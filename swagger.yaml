@@ -53,7 +53,7 @@ paths:
                   type: string
                 - in: path
                   name: id
-                  type: string
+                  type: integer
                   required: true
             security:
                 - Bearer: []
@@ -82,7 +82,7 @@ paths:
                   type: string
                 - in: path
                   name: id
-                  type: string
+                  type: integer
                   required: true
                 - in: body
                   name: Body
@@ -120,7 +120,7 @@ paths:
                   type: string
                 - in: path
                   name: id
-                  type: string
+                  type: integer
                   required: true
                 - in: body
                   name: Body
@@ -156,7 +156,7 @@ paths:
                   type: string
                 - in: path
                   name: id
-                  type: string
+                  type: integer
                   required: true
                 - in: body
                   name: Body
@@ -192,7 +192,7 @@ paths:
                   type: string
                 - in: path
                   name: id
-                  type: string
+                  type: integer
                   required: true
             security:
                 - Bearer: []
