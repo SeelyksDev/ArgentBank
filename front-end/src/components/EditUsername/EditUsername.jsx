@@ -3,6 +3,7 @@ import { useState } from "react";
 import { updateUserNameAPI } from "../../api/updateUsernameAPI";
 import { getUserInfo } from "../../store/userSlice";
 import UserIcon from "../../assets/user-icon.png";
+import "./EditUsername.css";
 
 const EditUsername = ({ isOpened }) => {
     const [usernameValue, setUsernameValue] = useState("");
